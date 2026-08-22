@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>UmbrellaCorp — Every workday, organized.</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:          #F5F6F3;
+    --white:       #FFFFFF;
+    --ink:         #1D2430;
+    --ink-soft:    #6B7280;
+    --blue:        #2851D8;
+    --blue-tint:   #EAF0FD;
+    --sage:        #1F7A43;
+    --sage-tint:   #E9F6EE;
+    --rust:        #B03028;
+    --rust-tint:   #FBEAEA;
+    --amber:       #A66B0D;
+    --amber-tint:  #FDF3E0;
+    --border:      #E3E5DF;
+    --radius:      8px;
+    --shadow:      0 1px 3px rgba(29,36,48,0.06), 0 1px 2px rgba(29,36,48,0.04);
+    --font-display:'Fraunces', serif;
+    --font-body:   'Inter', sans-serif;
+    --font-mono:   'Inter', sans-serif;
+  }
+
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    font-family: var(--font-body);
+    color: var(--ink);
+    background-color: var(--bg);
+  }
+
+  a{ color: inherit; }
+
+  header.letterhead{
+    background: var(--white);
+    color: var(--ink);
+    padding: 20px 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom: 1px solid var(--border);
+  }
+  header.letterhead .brand{ display:flex; align-items:center; gap:14px; }
+  header.letterhead .brand .mark{
+    width:40px;height:40px;
+    flex-shrink:0;
+    border-radius:50%;
+    overflow:hidden;
+    display:block;
+  }
+  header.letterhead .brand .mark svg{ display:block; width:100%; height:100%; }
+  header.letterhead h1{
+    font-family: var(--font-display);
+    font-weight:600;
+    font-size:22px;
+    margin:0;
+    letter-spacing:0.2px;
+  }
+  header.letterhead .tagline{
+    font-size:12px;
+    color: var(--ink-soft);
+    margin-top:2px;
+  }
+  header.letterhead .who{ font-size:13px; text-align:right; color: var(--ink-soft); }
+  header.letterhead .who div:first-child{ color: var(--ink); font-weight:600; }
+  header.letterhead .who button{ margin-top:8px; }
+
+  nav.tabs{ display:flex; gap:4px; padding: 0 32px; background: var(--white); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  nav.tabs button{
+    font-family: var(--font-body);
+    font-weight:600;
+    font-size:13px;
+    letter-spacing:0.2px;
+    background: transparent;
+    color: var(--ink-soft);
+    border:none;
+    border-bottom: 2px solid transparent;
+    padding:14px 16px;
+    cursor:pointer;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  nav.tabs button.active{ color: var(--blue); border-bottom-color: var(--blue); }
+  nav.tabs button:hover{ color: var(--ink); }
+
+  main{ max-width: 1080px; margin: 0 auto; padding: 32px 32px 80px 32px; }
+  .view{ display:none; }
+  .view.active{ display:block; }
+
+  .card{
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+  }
+
+  .grid{ display:grid; gap:18px; }
+  .grid.cols-3{ grid-template-columns: repeat(3, 1fr); }
+  .grid.cols-2{ grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 800px){
+    .grid.cols-3, .grid.cols-2{ grid-template-columns: 1fr; }
+  }
+
+  h2.section-title{
+    font-family: var(--font-display);
+    font-weight:600;
+    font-size:28px;
+    color: var(--ink);
+    margin: 0 0 4px 0;
+  }
+  p.section-sub{ color: var(--ink-soft); margin: 0 0 22px 0; font-size:14px; }
+  h3.card-title{ font-family: var(--font-display); font-weight:600; margin-top:0; color: var(--ink); }
+
+  label{
+    display:block;
+    font-size:12px;
+    font-weight:600;
+    color: var(--ink-soft);
+    margin: 12px 0 4px 0;
+  }
+  input, select, textarea{
+    width:100%;
+    font-family: var(--font-body);
+    font-size:14px;
+    padding:10px 12px;
+    border:1px solid var(--border);
+    border-radius:6px;
+    background: var(--white);
+    color: var(--ink);
+  }
+  input:focus, select:focus, textarea:focus{
+    outline: 2px solid var(--blue);
+    outline-offset: 1px;
+    border-color: var(--blue);
+  }
+
+  button.btn{
+    font-family: var(--font-body);
+    font-weight:600;
+    font-size:13px;
+    padding:10px 20px;
+    border-radius:6px;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition: opacity 0.15s, background 0.15s;
+  }
+  button.btn.primary{ background: var(--blue); color:var(--white); }
+  button.btn.primary:hover{ opacity:0.9; }
+  button.btn.ghost{ background:var(--white); border:1px solid var(--border); color:var(--ink); }
+  button.btn.ghost:hover{ border-color: var(--ink-soft); }
+  button.btn.danger{ background: var(--rust); color:var(--white); }
+  button.btn.small{ padding:6px 12px; font-size:12px; }
+  button.btn:disabled{ opacity:0.4; cursor:not-allowed; }
+
+  .error-msg{ color: var(--rust); font-size:13px; margin-top:8px; min-height:16px; }
+
+  .stamp{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font-family: var(--font-body);
+    font-weight:600;
+    font-size:11px;
+    letter-spacing:0.3px;
+    text-transform:uppercase;
+    padding:5px 12px;
+    border-radius: 999px;
+  }
+  .stamp.present, .stamp.approved, .stamp.accurate{ background: var(--sage-tint); color: var(--sage); }
+  .stamp.absent,  .stamp.rejected{ background: var(--rust-tint); color: var(--rust); }
+  .stamp.half-day, .stamp.pending{ background: var(--amber-tint); color: var(--amber); }
+  .stamp.leave{ background: var(--blue-tint); color: var(--blue); }
+
+  .id-card{
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--blue);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+  }
+  .id-card .avatar{
+    width:60px;height:60px;
+    border-radius:50%;
+    background: var(--blue-tint);
+    color: var(--blue);
+    display:flex;align-items:center;justify-content:center;
+    font-family: var(--font-display);
+    font-size:22px;font-weight:700;
+    margin-bottom:14px;
+  }
+  .id-card .name{ font-family: var(--font-display); font-size:21px; font-weight:600; }
+  .id-card .role-tag{ font-size:12px; color: var(--ink-soft); }
+
+  table.ledger{ width:100%; border-collapse: collapse; font-size:13px; }
+  table.ledger th{
+    text-align:left;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.4px;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--border);
+    padding:8px 6px;
+    font-weight:600;
+  }
+  table.ledger td{ padding:11px 6px; border-bottom: 1px solid var(--border); }
+  table.ledger tr:hover td{ background: var(--bg); }
+
+  .doc-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:9px 0; border-bottom:1px solid var(--border); font-size:13px;
+  }
+
+  .empty-state{ text-align:center; padding:30px; color: var(--ink-soft); font-style: italic; }
+  .hidden{ display:none !important; }
+
+  footer.foot{
+    text-align:center; padding:26px; font-size:12px; color: var(--ink-soft);
+  }
+
+  .net-pay{ font-family: var(--font-display); font-size: 32px; color: var(--blue); }
+</style>
+</head>
+<body>
+
+<!-- Reusable logo mark (inlined so it can be dropped anywhere without an extra file request) -->
+<template id="brand-mark-svg">
+  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="96" fill="#1D2430" />
+    <circle cx="100" cy="100" r="86" fill="#FFFFFF" />
+    <g>
+      <path d="M100,100 L100,14 A86,86 0 0,1 174.5,57 Z" fill="#2851D8" />
+      <path d="M100,100 L174.5,57 A86,86 0 0,1 174.5,143 Z" fill="#1D2430" />
+      <path d="M100,100 L174.5,143 A86,86 0 0,1 100,186 Z" fill="#2851D8" />
+      <path d="M100,100 L100,186 A86,86 0 0,1 25.5,143 Z" fill="#1D2430" />
+      <path d="M100,100 L25.5,143 A86,86 0 0,1 25.5,57 Z" fill="#2851D8" />
+      <path d="M100,100 L25.5,57 A86,86 0 0,1 100,14 Z" fill="#1D2430" />
+    </g>
+  </svg>
+</template>
+
+<!-- ============================================================
+     LOGIN / SIGN-UP VIEW
+     ============================================================ -->
+<div id="view-auth" class="view active">
+  <header class="letterhead">
+    <div class="brand">
+      <div class="mark" data-brand-mark></div>
+      <div>
+        <h1>UmbrellaCorp</h1>
+        <div class="tagline">Every workday, organized.</div>
+      </div>
+    </div>
+  </header>
+
+  <main style="max-width:420px;">
+    <div class="card">
+
+      <nav class="tabs" style="padding:0; margin-bottom:20px; border-bottom:1px solid var(--border);">
+        <button id="tab-signin" class="active" onclick="switchAuthTab('signin')">Sign In</button>
+        <button id="tab-signup" onclick="switchAuthTab('signup')">Sign Up</button>
+      </nav>
+
+      <!-- SIGN IN -->
+      <form id="form-signin" onsubmit="handleSignIn(event)">
+        <label for="si-email">Email</label>
+        <input id="si-email" type="email" placeholder="you@umbrellacorp.com" required />
+
+        <label for="si-password">Password</label>
+        <input id="si-password" type="password" placeholder="••••••••" required />
+
+        <div id="signin-error" class="error-msg"></div>
+
+        <button type="submit" class="btn primary" style="width:100%; margin-top:12px;">Sign In</button>
+        <p style="font-size:12px; color:var(--ink-soft); margin-top:10px;">
+          Demo accounts (after running seed_data.py) — Admin: aditi.sharma@odooadmin.com / Password@123 · Employee: priya.nair@odoo.com / Password@123
+        </p>
+      </form>
+
+      <!-- SIGN UP -->
+      <form id="form-signup" class="hidden" onsubmit="handleSignUp(event)">
+        <label for="su-name">Full Name</label>
+        <input id="su-name" type="text" placeholder="Priya Sharma" required />
+
+        <label for="su-empid">Employee ID</label>
+        <input id="su-empid" type="text" placeholder="EMP-1042" required />
+
+        <label for="su-email">Email</label>
+        <input id="su-email" type="email" placeholder="you@umbrellacorp.com" required />
+
+        <label for="su-password">Password</label>
+        <input id="su-password" type="password" placeholder="Min 8 characters" minlength="8" required />
+        <div style="font-size:11px; color:var(--ink-soft); margin-top:4px;">
+          Must be 8+ characters (a real system would also require a number &amp; symbol).
+        </div>
+
+        <label for="su-role">Role</label>
+        <select id="su-role">
+          <option value="employee">Employee</option>
+          <option value="admin">HR / Admin</option>
+        </select>
+
+        <div id="signup-error" class="error-msg"></div>
+
+        <button type="submit" class="btn primary" style="width:100%; margin-top:12px;">Create Account</button>
+        <p style="font-size:11px; color:var(--ink-soft); margin-top:10px;">
+          (Email verification is simulated instantly in this demo — no real email is sent.)
+        </p>
+      </form>
+
+    </div>
+  </main>
+</div>
+
+
+<!-- ============================================================
+     MAIN APP (after sign in)
+     ============================================================ -->
+<div id="view-app" class="view">
+
+  <header class="letterhead">
+    <div class="brand">
+      <div class="mark" data-brand-mark></div>
+      <div>
+        <h1>UmbrellaCorp</h1>
+        <div class="tagline">Every workday, organized.</div>
+      </div>
+    </div>
+    <div class="who">
+      <div id="who-name">—</div>
+      <div id="who-role">—</div>
+      <button class="btn ghost small" onclick="handleLogout()">Log Out</button>
+    </div>
+  </header>
+
+  <nav class="tabs" id="main-tabs">
+    <button class="active" onclick="switchMainTab('dashboard')">Dashboard</button>
+    <button onclick="switchMainTab('profile')">Profile</button>
+    <button onclick="switchMainTab('attendance')">Attendance</button>
+    <button onclick="switchMainTab('leave')">Leave</button>
+    <button onclick="switchMainTab('payroll')">Payroll</button>
+    <button id="tab-admin" class="hidden" onclick="switchMainTab('admin')">Admin Panel</button>
+  </nav>
+
+  <main>
+
+    <!-- DASHBOARD -->
+    <section id="page-dashboard" class="page">
+      <h2 class="section-title">Good day, <span id="dash-name">Employee</span></h2>
+      <p class="section-sub">Here's where things stand today.</p>
+
+      <div class="grid cols-3">
+        <div class="card" style="cursor:pointer;" onclick="switchMainTab('profile')">
+          <div style="font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.4px;">Quick Access</div>
+          <div style="font-family:var(--font-display); font-size:19px; margin-top:8px;">Profile</div>
+        </div>
+        <div class="card" style="cursor:pointer;" onclick="switchMainTab('attendance')">
+          <div style="font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.4px;">Quick Access</div>
+          <div style="font-family:var(--font-display); font-size:19px; margin-top:8px;">Attendance</div>
+        </div>
+        <div class="card" style="cursor:pointer;" onclick="switchMainTab('leave')">
+          <div style="font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.4px;">Quick Access</div>
+          <div style="font-family:var(--font-display); font-size:19px; margin-top:8px;">Leave Requests</div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:18px;">
+        <h3 class="card-title">Recent Activity</h3>
+        <div id="dash-activity"></div>
+      </div>
+    </section>
+
+    <!-- PROFILE -->
+    <section id="page-profile" class="page hidden">
+      <h2 class="section-title">My Profile</h2>
+      <p class="section-sub">Personal details, job details, salary structure, and documents.</p>
+
+      <div class="grid cols-2">
+        <div class="id-card">
+          <div class="avatar" id="profile-avatar">--</div>
+          <div class="name" id="profile-name">—</div>
+          <div class="role-tag" id="profile-idtag">—</div>
+          <div style="margin-top:16px; font-size:13px; line-height:1.9; color:var(--ink-soft);">
+            <div>Division: <span id="profile-dept" style="color:var(--ink);">—</span></div>
+            <div>Salary structure: <span id="profile-salary" style="color:var(--ink);">—</span> <span>(see Payroll tab)</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">Edit Contact Details</h3>
+          <p style="font-size:12px; color:var(--ink-soft);">Employees may edit phone, address &amp; photo only. Admin edits all fields from the Admin Panel.</p>
+          <form onsubmit="handleProfileSave(event)">
+            <label for="edit-phone">Phone</label>
+            <input id="edit-phone" type="text" />
+            <label for="edit-address">Address</label>
+            <input id="edit-address" type="text" />
+            <button type="submit" class="btn primary" style="margin-top:14px;">Save Changes</button>
+            <span id="profile-saved-msg" style="font-size:12px; color:var(--sage); margin-left:10px;"></span>
+          </form>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:18px;">
+        <h3 class="card-title">Documents</h3>
+        <div id="profile-documents"></div>
+      </div>
+    </section>
+
+    <!-- ATTENDANCE -->
+    <section id="page-attendance" class="page hidden">
+      <h2 class="section-title">Attendance</h2>
+      <p class="section-sub">Check in, check out, and review your recent record.</p>
+
+      <div class="card" style="margin-bottom:18px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+        <div>
+          <div style="font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.4px;">Today's Status</div>
+          <div id="today-status" style="font-family:var(--font-display); font-size:20px; margin-top:4px;">Not checked in</div>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button class="btn primary" id="btn-checkin" onclick="handleCheckIn()">Check In</button>
+          <button class="btn ghost" id="btn-checkout" onclick="handleCheckOut()">Check Out</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">Recent Log</h3>
+        <table class="ledger">
+          <thead><tr><th>Date</th><th>Check In</th><th>Check Out</th><th>Status</th></tr></thead>
+          <tbody id="attendance-rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- LEAVE -->
+    <section id="page-leave" class="page hidden">
+      <h2 class="section-title">Leave &amp; Time-Off</h2>
+      <p class="section-sub">Apply for leave and track the status of your requests.</p>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <h3 class="card-title">Apply for Leave</h3>
+          <form onsubmit="handleApplyLeave(event)">
+            <label for="leave-type">Leave Type</label>
+            <select id="leave-type">
+              <option>Paid</option>
+              <option>Sick</option>
+              <option>Unpaid</option>
+            </select>
+            <label for="leave-from">From</label>
+            <input id="leave-from" type="date" required />
+            <label for="leave-to">To</label>
+            <input id="leave-to" type="date" required />
+            <label for="leave-remarks">Remarks</label>
+            <textarea id="leave-remarks" rows="3" placeholder="Reason for leave..."></textarea>
+            <button type="submit" class="btn primary" style="margin-top:14px;">Submit Request</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title">My Requests</h3>
+          <div id="my-leave-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAYROLL -->
+    <section id="page-payroll" class="page hidden">
+      <h2 class="section-title">Payroll</h2>
+      <p class="section-sub">Your salary structure — view-only. HR manages any updates.</p>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <h3 class="card-title">Salary Breakdown</h3>
+          <table class="ledger">
+            <tbody id="payroll-breakdown-rows"></tbody>
+          </table>
+        </div>
+        <div class="card" style="display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;">
+          <div style="font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.4px;">Net Monthly Pay</div>
+          <div class="net-pay" id="payroll-net">—</div>
+          <span class="stamp accurate" style="margin-top:10px;">Payroll Accurate</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMIN PANEL -->
+    <section id="page-admin" class="page hidden">
+      <h2 class="section-title">Admin / HR Panel</h2>
+      <p class="section-sub">Manage the workforce: directory, attendance, leave, and payroll.</p>
+
+      <div class="card" style="margin-bottom:18px;">
+        <h3 class="card-title">Employee Directory</h3>
+        <table class="ledger">
+          <thead><tr><th>ID</th><th>Name</th><th>Division</th><th>Today's Attendance</th><th></th></tr></thead>
+          <tbody id="admin-employee-rows"></tbody>
+        </table>
+      </div>
+
+      <div class="card hidden" id="admin-employee-detail" style="margin-bottom:18px;"></div>
+
+      <div class="card" style="margin-bottom:18px;">
+        <h3 class="card-title">Leave Approvals</h3>
+        <div id="admin-leave-list"></div>
+      </div>
+
+      <div class="card">
+        <h3 class="card-title">Payroll Control</h3>
+        <p style="font-size:12px; color:var(--ink-soft);">Update any employee's salary structure below.</p>
+        <table class="ledger">
+          <thead><tr><th>Name</th><th>Basic</th><th>Allowances</th><th>Deductions</th><th>Net</th><th></th></tr></thead>
+          <tbody id="admin-payroll-rows"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">UmbrellaCorp HRMS</footer>
+</div>
+
+
+
+<script>
+/* ================================================================
+   UMBRELLACORP — APP LOGIC (wired to the Flask API)
+   ================================================================ */
+
+  // ---- 0. Inject the brand mark SVG into every header slot ----
+  document.querySelectorAll('[data-brand-mark]').forEach(el => {
+    el.innerHTML = document.getElementById('brand-mark-svg').innerHTML;
+  });
+
+// ---- 1. API HELPER ----
+
+  async function api(path, options = {}) {
+    const res = await fetch(path, {
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
+    });
+    let body = null;
+    try { body = await res.json(); } catch (e) { /* no body */ }
+    if (!res.ok) {
+      const message = (body && body.error) || `Request failed (${res.status})`;
+      throw new Error(message);
+    }
+    return body;
+  }
+
+  let currentUser = null;      // { id, employeeId, name, email, role }
+  let adminSelectedUserId = null;
+  let adminEditingSalaryUserId = null;
+
+  function formatINR(n){
+    return "₹" + Number(n || 0).toLocaleString('en-IN');
+  }
+  function netPay(basic, allowances, deductions){
+    return Number(basic || 0) + Number(allowances || 0) - Number(deductions || 0);
+  }
+  function todayString(){ return new Date().toISOString().split('T')[0]; }
+  function timeFromISO(iso){
+    if(!iso) return null;
+    return new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+  function capitalize(s){
+    return s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+  }
+
+
+// ---- 2. AUTH ----
+
+  function switchAuthTab(tab){
+    document.getElementById('tab-signin').classList.toggle('active', tab === 'signin');
+    document.getElementById('tab-signup').classList.toggle('active', tab === 'signup');
+    document.getElementById('form-signin').classList.toggle('hidden', tab !== 'signin');
+    document.getElementById('form-signup').classList.toggle('hidden', tab !== 'signup');
+  }
+
+  async function handleSignUp(event){
+    event.preventDefault();
+    const name = document.getElementById('su-name').value.trim();
+    const employee_id = document.getElementById('su-empid').value.trim();
+    const email = document.getElementById('su-email').value.trim().toLowerCase();
+    const password = document.getElementById('su-password').value;
+    const role = document.getElementById('su-role').value;
+    const errorBox = document.getElementById('signup-error');
+    errorBox.textContent = '';
+
+    if(password.length < 8){
+      errorBox.textContent = "Password must be at least 8 characters.";
+      return;
+    }
+
+    try {
+      await api('/api/auth/signup', {
+        method: 'POST',
+        body: JSON.stringify({ name, employee_id, email, password, role }),
+      });
+      alert("Account created! Please sign in.");
+      switchAuthTab('signin');
+      event.target.reset();
+    } catch (err) {
+      errorBox.textContent = err.message;
+    }
+  }
+
+  async function handleSignIn(event){
+    event.preventDefault();
+    const email = document.getElementById('si-email').value.trim().toLowerCase();
+    const password = document.getElementById('si-password').value;
+    const errorBox = document.getElementById('signin-error');
+    errorBox.textContent = '';
+
+    try {
+      const data = await api('/api/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+      });
+      currentUser = data.user;
+      enterApp();
+    } catch (err) {
+      errorBox.textContent = err.message;
+    }
+  }
+
+  async function handleLogout(){
+    try { await api('/api/auth/logout', { method: 'POST' }); } catch (e) { /* ignore */ }
+    currentUser = null;
+    adminSelectedUserId = null;
+    document.getElementById('view-app').classList.remove('active');
+    document.getElementById('view-auth').classList.add('active');
+  }
+
+  // Check for an existing session on page load (e.g. after a refresh).
+  async function checkExistingSession(){
+    try {
+      const data = await api('/api/auth/me');
+      currentUser = data.user;
+      enterApp();
+    } catch (err) {
+      // Not logged in — stay on the auth view.
+    }
+  }
+  checkExistingSession();
+
+
+// ---- 3. ENTER APP / TAB NAVIGATION ----
+
+  function enterApp(){
+    document.getElementById('view-auth').classList.remove('active');
+    document.getElementById('view-app').classList.add('active');
+
+    document.getElementById('who-name').textContent = currentUser.name;
+    document.getElementById('who-role').textContent = currentUser.role === 'admin' ? 'HR / Admin' : 'Employee';
+    document.getElementById('tab-admin').classList.toggle('hidden', currentUser.role !== 'admin');
+
+    switchMainTab('dashboard');
+  }
+
+  function switchMainTab(pageName){
+    const buttons = document.querySelectorAll('#main-tabs button');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    const activeBtn = Array.from(buttons).find(b => b.getAttribute('onclick') === `switchMainTab('${pageName}')`);
+    if(activeBtn) activeBtn.classList.add('active');
+
+    document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+    document.getElementById('page-' + pageName).classList.remove('hidden');
+
+    if(pageName === 'dashboard') renderDashboard();
+    if(pageName === 'profile') renderProfile();
+    if(pageName === 'attendance') renderAttendance();
+    if(pageName === 'leave') renderLeave();
+    if(pageName === 'payroll') renderPayroll();
+    if(pageName === 'admin') renderAdmin();
+  }
+
+
+// ---- 4. DASHBOARD ----
+
+  async function renderDashboard(){
+    document.getElementById('dash-name').textContent = currentUser.name.split(' ')[0];
+    const activityBox = document.getElementById('dash-activity');
+    activityBox.innerHTML = '';
+
+    try {
+      const [leaveData, attendanceData] = await Promise.all([
+        api('/api/leave/me'),
+        api('/api/attendance/me'),
+      ]);
+
+      const pendingCount = leaveData.leaves.filter(l => l.status === 'pending').length;
+      if(pendingCount > 0){
+        activityBox.innerHTML += `<p>You have <b>${pendingCount}</b> leave request(s) awaiting approval.</p>`;
+      }
+
+      const today = todayString();
+      const todaysRecord = attendanceData.attendance.find(a => a.date === today);
+      activityBox.innerHTML += !todaysRecord
+        ? `<p>You haven't checked in today yet.</p>`
+        : `<p>You checked in today at <b>${timeFromISO(todaysRecord.checkIn)}</b>.</p>`;
+
+      if(activityBox.innerHTML === '') activityBox.innerHTML = `<p class="empty-state">No new alerts.</p>`;
+    } catch (err) {
+      activityBox.innerHTML = `<p class="empty-state">Couldn't load activity.</p>`;
+    }
+  }
+
+
+// ---- 5. PROFILE ----
+
+  let currentProfile = null;
+
+  async function renderProfile(){
+    try {
+      const data = await api('/api/profile/me');
+      currentProfile = data.profile;
+    } catch (err) {
+      currentProfile = { phone: '', address: '', department: '', basicSalary: 0, allowances: 0, deductions: 0, documents: [] };
+    }
+
+    document.getElementById('profile-name').textContent = currentUser.name;
+    document.getElementById('profile-idtag').textContent = currentUser.employeeId + " · " + (currentUser.role === 'admin' ? 'HR / Admin' : 'Employee');
+    document.getElementById('profile-dept').textContent = currentProfile.department || '—';
+    document.getElementById('profile-salary').textContent = formatINR(netPay(currentProfile.basicSalary, currentProfile.allowances, currentProfile.deductions)) + " / yr (net)";
+    document.getElementById('profile-avatar').textContent = currentUser.name.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+    document.getElementById('edit-phone').value = currentProfile.phone || '';
+    document.getElementById('edit-address').value = currentProfile.address || '';
+    document.getElementById('profile-saved-msg').textContent = '';
+
+    const docBox = document.getElementById('profile-documents');
+    docBox.innerHTML = '';
+    const documents = currentProfile.documents || [];
+    if(documents.length === 0){
+      docBox.innerHTML = `<p class="empty-state">No documents on file.</p>`;
+    } else {
+      documents.forEach(doc => {
+        docBox.innerHTML += `<div class="doc-row"><span>${doc}</span><button class="btn ghost small" onclick="alert('Preview not available in this demo.')">View</button></div>`;
+      });
+    }
+  }
+
+  async function handleProfileSave(event){
+    event.preventDefault();
+    const phone = document.getElementById('edit-phone').value;
+    const address = document.getElementById('edit-address').value;
+    try {
+      await api('/api/profile/me', { method: 'PUT', body: JSON.stringify({ phone, address }) });
+      document.getElementById('profile-saved-msg').textContent = "Saved ✔";
+    } catch (err) {
+      document.getElementById('profile-saved-msg').textContent = err.message;
+    }
+  }
+
+
+// ---- 6. ATTENDANCE ----
+
+  async function handleCheckIn(){
+    try {
+      await api('/api/attendance/checkin', { method: 'POST' });
+      renderAttendance();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  async function handleCheckOut(){
+    try {
+      await api('/api/attendance/checkout', { method: 'POST' });
+      renderAttendance();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  async function renderAttendance(){
+    let records = [];
+    try {
+      const data = await api('/api/attendance/me');
+      records = data.attendance;
+    } catch (err) { /* leave empty */ }
+
+    const today = todayString();
+    const todaysRecord = records.find(a => a.date === today);
+
+    document.getElementById('today-status').textContent =
+      !todaysRecord ? "Not checked in" :
+      !todaysRecord.checkOut ? `Checked in at ${timeFromISO(todaysRecord.checkIn)}` :
+      `Checked in ${timeFromISO(todaysRecord.checkIn)} → out ${timeFromISO(todaysRecord.checkOut)}`;
+
+    document.getElementById('btn-checkin').disabled = !!todaysRecord;
+    document.getElementById('btn-checkout').disabled = !todaysRecord || !!todaysRecord.checkOut;
+
+    const tbody = document.getElementById('attendance-rows');
+    tbody.innerHTML = '';
+    if(records.length === 0){
+      tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No attendance recorded yet.</td></tr>`;
+      return;
+    }
+    records.forEach(r => {
+      tbody.innerHTML += `<tr>
+          <td>${r.date}</td><td>${timeFromISO(r.checkIn) || '—'}</td><td>${timeFromISO(r.checkOut) || '—'}</td>
+          <td><span class="stamp ${r.status.toLowerCase().replace(' ','-')}">${capitalize(r.status)}</span></td>
+        </tr>`;
+    });
+  }
+
+
+// ---- 7. LEAVE ----
+
+  async function handleApplyLeave(event){
+    event.preventDefault();
+    const leaveType = document.getElementById('leave-type').value;
+    const startDate = document.getElementById('leave-from').value;
+    const endDate = document.getElementById('leave-to').value;
+    const reason = document.getElementById('leave-remarks').value;
+    if(!startDate || !endDate){ alert("Please choose both dates."); return; }
+
+    try {
+      await api('/api/leave', {
+        method: 'POST',
+        body: JSON.stringify({ leaveType, startDate, endDate, reason }),
+      });
+      event.target.reset();
+      renderLeave();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  async function renderLeave(){
+    const box = document.getElementById('my-leave-list');
+    let leaves = [];
+    try {
+      const data = await api('/api/leave/me');
+      leaves = data.leaves;
+    } catch (err) { /* leave empty */ }
+
+    box.innerHTML = '';
+    if(leaves.length === 0){ box.innerHTML = `<p class="empty-state">No leave requests yet.</p>`; return; }
+    leaves.forEach(l => {
+      box.innerHTML += `
+        <div style="padding:10px 0; border-bottom:1px solid var(--border);">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <b>${l.leaveType} leave</b>
+            <span class="stamp ${l.status.toLowerCase()}">${capitalize(l.status)}</span>
+          </div>
+          <div style="font-size:12px; color:var(--ink-soft); margin-top:4px;">${l.startDate} → ${l.endDate}</div>
+          ${l.reason ? `<div style="font-size:13px; margin-top:4px;">"${l.reason}"</div>` : ''}
+        </div>`;
+    });
+  }
+
+
+// ---- 8. PAYROLL — employee view (read-only) ----
+
+  async function renderPayroll(){
+    let profile = currentProfile;
+    if(!profile){
+      try {
+        const data = await api('/api/profile/me');
+        profile = data.profile;
+        currentProfile = profile;
+      } catch (err) {
+        profile = { basicSalary: 0, allowances: 0, deductions: 0 };
+      }
+    }
+
+    const rows = document.getElementById('payroll-breakdown-rows');
+    rows.innerHTML = `
+      <tr><td>Basic</td><td style="text-align:right;">${formatINR(profile.basicSalary)}</td></tr>
+      <tr><td>Allowances</td><td style="text-align:right;">${formatINR(profile.allowances)}</td></tr>
+      <tr><td>Deductions</td><td style="text-align:right; color:var(--rust);">− ${formatINR(profile.deductions)}</td></tr>
+    `;
+    document.getElementById('payroll-net').textContent = formatINR(netPay(profile.basicSalary, profile.allowances, profile.deductions)) + " / yr";
+  }
+
+
+// ---- 9. ADMIN PANEL ----
+
+  async function renderAdmin(){
+    const empRows = document.getElementById('admin-employee-rows');
+    empRows.innerHTML = '';
+
+    let employees = [];
+    try {
+      const data = await api('/api/admin/employees');
+      employees = data.employees;
+    } catch (err) {
+      empRows.innerHTML = `<tr><td colspan="5" class="empty-state">${err.message}</td></tr>`;
+    }
+
+    employees.forEach(u => {
+      empRows.innerHTML += `
+        <tr>
+          <td>${u.employeeId}</td><td>${u.name}</td><td>${u.department || '—'}</td>
+          <td><span class="stamp ${u.todayStatus.toLowerCase()}">${capitalize(u.todayStatus)}</span></td>
+          <td><button class="btn ghost small" onclick="switchAdminEmployee(${u.id})">View</button></td>
+        </tr>`;
+    });
+
+    await renderAdminEmployeeDetail();
+    await renderAdminLeaves();
+    await renderAdminPayroll();
+  }
+
+  function switchAdminEmployee(userId){
+    adminSelectedUserId = userId;
+    renderAdminEmployeeDetail();
+  }
+
+  async function renderAdminEmployeeDetail(){
+    const box = document.getElementById('admin-employee-detail');
+    if(!adminSelectedUserId){ box.classList.add('hidden'); return; }
+
+    let detail;
+    try {
+      detail = await api('/api/admin/employees/' + adminSelectedUserId);
+    } catch (err) {
+      box.classList.add('hidden');
+      return;
+    }
+
+    const u = detail.employee;
+    const myAttendance = detail.attendance;
+    const myLeaves = detail.leaves;
+
+    let attendanceHtml = myAttendance.length
+      ? myAttendance.map(r => `<div style="font-size:12px; margin-bottom:4px;">${r.date} — ${timeFromISO(r.checkIn) || '—'} to ${timeFromISO(r.checkOut) || '—'} <span class="stamp ${r.status.toLowerCase()}" style="margin-left:6px;">${capitalize(r.status)}</span></div>`).join('')
+      : `<div class="empty-state" style="padding:8px;">No attendance yet.</div>`;
+
+    let leaveHtml = myLeaves.length
+      ? myLeaves.map(l => `<div style="font-size:12px; margin-bottom:4px;">${l.leaveType} · ${l.startDate} → ${l.endDate} <span class="stamp ${l.status.toLowerCase()}" style="margin-left:6px;">${capitalize(l.status)}</span></div>`).join('')
+      : `<div class="empty-state" style="padding:8px;">No leave requests yet.</div>`;
+
+    box.classList.remove('hidden');
+    box.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div>
+          <h3 class="card-title" style="margin-bottom:2px;">Now Viewing: ${u.name}</h3>
+          <div style="font-size:12px; color:var(--ink-soft);">${u.employeeId} · ${u.email}</div>
+        </div>
+        <button class="btn ghost small" onclick="switchAdminEmployee(null)">Close</button>
+      </div>
+      <div class="grid cols-2" style="margin-top:16px;">
+        <div>
+          <div style="font-size:11px; text-transform:uppercase; color:var(--ink-soft); letter-spacing:0.4px; margin-bottom:8px;">Recent Attendance</div>
+          ${attendanceHtml}
+        </div>
+        <div>
+          <div style="font-size:11px; text-transform:uppercase; color:var(--ink-soft); letter-spacing:0.4px; margin-bottom:8px;">Recent Leave</div>
+          ${leaveHtml}
+        </div>
+      </div>
+    `;
+  }
+
+  async function renderAdminLeaves(){
+    const box = document.getElementById('admin-leave-list');
+    let leaves = [];
+    try {
+      const data = await api('/api/admin/leaves');
+      leaves = data.leaves;
+    } catch (err) { /* leave empty */ }
+
+    box.innerHTML = '';
+    if(leaves.length === 0){
+      box.innerHTML = `<p class="empty-state">No leave requests to review.</p>`;
+      return;
+    }
+    leaves.forEach(l => {
+      box.innerHTML += `
+        <div style="padding:12px 0; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <b>${l.employeeName}</b> — ${l.leaveType} leave
+            <div style="font-size:12px; color:var(--ink-soft);">${l.startDate} → ${l.endDate} ${l.reason ? '· "' + l.reason + '"' : ''}</div>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="stamp ${l.status.toLowerCase()}">${capitalize(l.status)}</span>
+            ${l.status === 'pending' ? `
+              <button class="btn primary small" onclick="resolveLeave(${l.id}, 'approved')">Approve</button>
+              <button class="btn danger small" onclick="resolveLeave(${l.id}, 'rejected')">Reject</button>
+            ` : ''}
+          </div>
+        </div>`;
+    });
+  }
+
+  async function resolveLeave(id, newStatus){
+    try {
+      await api('/api/admin/leaves/' + id, { method: 'PUT', body: JSON.stringify({ status: newStatus }) });
+      renderAdmin();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  async function renderAdminPayroll(){
+    const rows = document.getElementById('admin-payroll-rows');
+    let salaries = [];
+    try {
+      const data = await api('/api/admin/salaries');
+      salaries = data.salaries;
+    } catch (err) {
+      rows.innerHTML = `<tr><td colspan="5" class="empty-state">${err.message}</td></tr>`;
+      return;
+    }
+
+    rows.innerHTML = '';
+    salaries.forEach(s => {
+      if(adminEditingSalaryUserId === s.userId){
+        rows.innerHTML += `
+          <tr>
+            <td>${s.name}</td>
+            <td><input id="edit-basic" type="number" value="${s.basicSalary}" style="width:100px;" /></td>
+            <td><input id="edit-allowances" type="number" value="${s.allowances}" style="width:90px;" /></td>
+            <td><input id="edit-deductions" type="number" value="${s.deductions}" style="width:90px;" /></td>
+            <td>—</td>
+            <td>
+              <button class="btn primary small" onclick="savePayrollEdit(${s.userId})">Save</button>
+              <button class="btn ghost small" onclick="cancelPayrollEdit()">Cancel</button>
+            </td>
+          </tr>`;
+      } else {
+        rows.innerHTML += `
+          <tr>
+            <td>${s.name}</td>
+            <td>${formatINR(s.basicSalary)}</td>
+            <td>${formatINR(s.allowances)}</td>
+            <td>${formatINR(s.deductions)}</td>
+            <td><b>${formatINR(s.netSalary)}</b></td>
+            <td><button class="btn ghost small" onclick="startPayrollEdit(${s.userId})">Edit</button></td>
+          </tr>`;
+      }
+    });
+  }
+
+  function startPayrollEdit(userId){ adminEditingSalaryUserId = userId; renderAdminPayroll(); }
+  function cancelPayrollEdit(){ adminEditingSalaryUserId = null; renderAdminPayroll(); }
+
+  async function savePayrollEdit(userId){
+    const basicSalary = Number(document.getElementById('edit-basic').value) || 0;
+    const allowances = Number(document.getElementById('edit-allowances').value) || 0;
+    const deductions = Number(document.getElementById('edit-deductions').value) || 0;
+    try {
+      await api('/api/admin/salaries/' + userId, {
+        method: 'PUT',
+        body: JSON.stringify({ basicSalary, allowances, deductions }),
+      });
+      adminEditingSalaryUserId = null;
+      renderAdminPayroll();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+</script>
+</body>
+</html>
