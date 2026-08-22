@@ -1,2 +1,2 @@
 # Dayflow
-daily routine app 
+employee portal for effective functioning
