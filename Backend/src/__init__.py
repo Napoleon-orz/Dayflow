@@ -6,7 +6,7 @@ from src.extensions import db, bcrypt
 
 
 def create_app():
-    app = Flask(__name__, static_folder="../frontend", static_url_path="")
+    app = Flask(__name__, static_folder="../../frontend", static_url_path=""))
     app.config.from_object(Config)
 
     # Initialize extensions with this app
