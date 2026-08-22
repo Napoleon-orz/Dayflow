@@ -1,2 +1,2 @@
 # Dayflow
-employee portal for effective functioning
+A role-based HRMS for employee management, attendance tracking, leave management, approvals, and payroll.
